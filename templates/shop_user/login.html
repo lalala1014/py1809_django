@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<title>给我一颗糖-登录</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- font files  -->
+<link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+<!-- /font files  -->
+<!-- css files -->
+{% load static %}
+<link href="{% static '/shop_user/css/style.css' %}" rel='stylesheet' type='text/css' media="all" />
+<!-- /css files -->
+<script src="{% static '/shop_user/js/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static '/shop_user/js/jquery.form.js' %}"></script>
+</head>
+<body>
+<h1>给我一颗糖小铺</h1>
+<div class="log">
+	<div class="content1">
+		<h2>Sign In Form</h2>
+		<form  method="post">
+			{% csrf_token %}
+			<input class="user" id="user" type="text" name="user" value="USERNAME" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'USERNAME';}" required>
+			<input type="password"id="pwd" class="pwd" name="pwd" value="PASSWORD" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'PASSWORD';}" required>
+			 <input type="text" name="code" id="code" class="code" required><br><br>
+            <img src="/shop_user/code/" alt="" onclick="check_code(this)">
+			<div class="button-row">
+				<button type="button" class="sign-in" value="登录" id="btn">登录</button>
+				<input type="reset" class="reset" value="注册" onclick="window.location.href='/shop_user/regist'">
+				<div class="clear"></div>
+			</div>
+		</form>
+	</div>
+	<div class="clear"></div>
+</div>
+<div class="footer">
+	<p>Copyright &copy; 2016.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="啦啦啦">啦啦啦</a> - Collect from <a href="http://www.cssmoban.com/" title="啦啦啦" target="_blank">啦啦啦</a></p>
+</div>
+<script>
+     function check_code(node) {
+        node.src = '/shop_user/code/?search=' + Math.random();
+     }
+     $("#btn").on("click",function(){
+            $.ajax({
+                url :"/shop_user/login/",
+                type:"POST",
+				data:{"buyer_name":$("#user").val(),"password":$("#pwd").val(),"code":$("#code").val()},
+                dataType : "Json",
+                success:function(isLogin){
+                	if (isLogin["isLogin"]==true)
+					{
+						alert("登陆成功");
+						window.location.href="/shop_user/index/";
+					}
+                	else {
+                		alert("登录失败，用户名密码或验证码输入错误");
+						window.location.href="/shop_user/login/"
+					}
+                }
+            });
+        });
+</script>
+</body>
+</html>

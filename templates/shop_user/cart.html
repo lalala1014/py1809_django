@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Cart</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="aStar Fashion Template Project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static '/shop_user/css/styles/bootstrap-4.1.3/bootstrap.css' %}">
+<link href="{% static '/shop_user/css/plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{% static '/shop_user/css/plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static '/shop_user/css/plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static '/shop_user/css/plugins/OwlCarousel2-2.2.1/animate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static '/shop_user/css/cart.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static '/shop_user/css/styles/responsive.css' %}">
+	<style>
+		#updateCart>a{
+			 cursor:pointer;
+			display: block;
+			font-size: 14px;
+			font-weight: 700;
+			text-transform: uppercase;
+			color: white;
+			line-height: 45px;
+		}
+		#updateCart>a:hover{
+			 cursor:pointer;
+			display: block;
+			font-size: 14px;
+			font-weight: 700;
+			text-transform: uppercase;
+			color: #1a1a1a;
+			line-height: 45px;
+		}
+		#del{
+			color: #414141;
+		}
+		#del>a:hover{
+			cursor:pointer;
+			color: #FFFFFF;
+		}
+		#cart{
+			color: #414141;
+		}
+		#cart>a:hover{
+			cursor:pointer;
+			color: #FFFFFF;
+		}
+	</style>
+</head>
+<body>
+
+<div class="super_container">
+	
+	<!-- Sidebar -->
+
+	<div class="sidebar">
+
+		<!-- Info -->
+		<div class="info">
+			<div class="info_content d-flex flex-row align-items-center justify-content-start">
+
+				<!-- Language -->
+				<div class="info_languages has_children">
+					{% if buyer == "null" %}
+					<div class="language_flag"><img src=""></div>
+					<div class="dropdown_text" onclick="hidden()">请登录</div>
+					<div class="dropdown_arrow"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
+					<ul>
+					 	<li><a href="/shop_user/login/">
+							<div class="dropdown_text">登录</div>
+					 	</a></li>
+					 	<li><a href="/shop_user/regist/">
+							<div class="dropdown_text">注册</div>
+					 	</a></li>
+					 </ul>
+					{% else %}
+					<div class="language_flag"><img src="/{{buyer.head}}/"></div>
+					<div class="dropdown_text">{{buyer.nickName}}</div>
+					<div class="dropdown_arrow"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
+
+					 <ul>
+					 	<li><a href="/shop_user/update_user/">
+							<div class="dropdown_text">修改个人资料</div>
+					 	</a></li>
+					 	<li><a href="/shop_user/formlist/">
+							<div class="dropdown_text">查看订单</div>
+					 	</a></li>
+						 <li><a href="/shop_user/exit/">
+							<div class="dropdown_text">退出登录</div>
+					 	</a></li>
+					 </ul>
+					{% endif %}
+
+				</div>
+
+				<!-- Currency -->
+				<div class="info_currencies has_children">
+					<div class="dropdown_text">usd</div>
+					<div class="dropdown_arrow"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
+
+					<!-- Currencies Dropdown Menu -->
+					 <ul>
+					 	<li><a href="#"><div class="dropdown_text">EUR</div></a></li>
+					 	<li><a href="#"><div class="dropdown_text">YEN</div></a></li>
+					 	<li><a href="#"><div class="dropdown_text">GBP</div></a></li>
+					 	<li><a href="#"><div class="dropdown_text">CAD</div></a></li>
+					 </ul>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Logo -->
+		<div class="sidebar_logo">
+			<a href="/shop_user/index/"><div>g <span>m a S</span></div></a>
+		</div>
+
+		<!-- Sidebar Navigation -->
+		<nav class="sidebar_nav">
+			<ul>
+				<li><a href="/shop_user/index/">首页<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+				<li><a href="/shop_user/shangyi/">上衣<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+				<li><a href="/shop_user/xiazhuang/">下装<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+				<li><a href="/shop_user/shoes/">鞋<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+				<li><a href="/shop_user/Accessories/">配饰<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+				<li><a href="#">清仓半价<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+			</ul>
+		</nav>
+
+		<!-- Search -->
+		<div class="search">
+			<form action="#" class="search_form" id="sidebar_search_form">
+				<input type="text" class="search_input" placeholder="Search" required="required">
+				<button class="search_button"><i class="fa fa-search" aria-hidden="true"></i></button>
+			</form>
+		</div>
+
+		<!-- Cart -->
+		<div class="cart d-flex flex-row align-items-center justify-content-start">
+			<div class="cart_icon"><a href="/shop_user/cart/">
+				<img src="{% static '/shop_user/images/shop/bag.png' %}" alt="">
+				<div class="cart_num">{{cartcount}}</div>
+			</a></div>
+			<div class="cart_text">购物车</div>
+			<div class="cart_price">{{allprice}}</div>
+		</div>
+	</div>
+
+	<!-- Home -->
+	<div class="home">
+		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="{% static '/shop_user/images/shop/1.jpg' %}" data-speed="0.8"></div>
+		<div class="home_container">
+			<div class="home_content">
+				<div class="home_title">Cart</div>
+				<div class="breadcrumbs">
+					<ul class="d-flex flex-row align-items-center justify-content-start">
+						<li><a href="/shop_user/index/">Home</a></li>
+						<li>Your Cart</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Cart -->
+
+	<div class="cart_section">
+		<div class="section_container">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="cart_container">
+							
+							<!-- Cart Bar -->
+							<div class="cart_bar">
+								<ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-start">
+									<li>商品名称</li>
+									<li>类型</li>
+									<li>尺码</li>
+									<li>单价</li>
+									<li>数量</li>
+									<li>总价</li>
+								</ul>
+							</div>
+
+							<!-- Cart Items -->
+							<div class="cart_items">
+								<ul class="cart_items_list">
+
+									<!-- Cart Item -->
+									{% for i in Carts %}
+									<li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
+										<div class="product d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
+											<div><div class="product_image"><img src="/{{i.Cart_good.Goodslogo}}/" alt=""></div></div>
+											<div class="product_name">{{i.Cart_good.GoodsName}}</div>
+											<input type="hidden" value={{i.id}} class="product_id">
+										</div>
+										<div class="product_color text-lg-center ">{{i.Cart_good.Goods_Type}}</div>
+										<div class="product_size text-lg-center " >{{i.Cart_good.Goods_size}}</div>
+										<div class="product_price text-lg-center product_text">{{i.Cart_good.Goods_price}}</div>
+										<div class="product_quantity_container">
+											<div class="product_quantity ml-lg-auto mr-lg-auto text-center">
+												<span class="product_text product_num" id="count_{{i.id}}">{{i.Cart_Count}}</span>
+												<div class="qty_sub qty_button trans_200 text-center" onclick="calsc({{i.Cart_good.Goods_price}},{{i.id}},this)"><span >-</span></div>
+												<div class="qty_add qty_button trans_200 text-center" onclick="calsc({{i.Cart_good.Goods_price}},{{i.id}},this)"><span  >+</span></div>
+											</div>
+										</div>
+										<div class="product_total text-lg-center product_text">￥<span id="allprice_{{i.id}}">{{i.Goods_allPrice}}</span></div>
+									</li>
+									{% endfor %}
+								</ul>
+							</div>
+
+							<!-- Cart Buttons -->
+							<div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
+								<div class="cart_buttons_inner ml-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
+									<div class="button button_continue trans_200"><a href="/shop_user/index/">继续购物</a></div>
+									<div class="button button_clear trans_200" id="del"><a onclick="del()">清空</a></div>
+									<div class="button button_update trans_200" id="updateCart" onclick="updateCart()"><a>更新购物车</a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="section_container cart_extra_container">
+			<div class="container">
+				<div class="row">
+					<!-- Shipping & Delivery -->
+					<div class="col-xxl-6">
+						<div class="cart_extra cart_extra_1">
+							<div class="cart_extra_content cart_extra_coupon">
+								<div class="cart_extra_title">订单信息</div>
+								<div class="shipping">
+									<ul>
+										{% for j in Carts %}
+										<li class="shipping_option d-flex flex-row align-items-center justify-content-start">
+											<label class="radio_container" >
+												<input type="checkbox" name="shipping_radio" class="shipping_radio" value={{j.Cart_good.id}} id="check_{{j.id}}" onchange="checkgoods({{j.id}})">
+												<span class="radio_mark"></span>
+												<span class="radio_text">{{j.Cart_good.GoodsName}}</span>
+											</label>
+											<div class="shipping_price ml-auto">￥<span id="span_{{j.id}}">{{j.Goods_allPrice}}</span></div>
+										</li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+					<!-- Cart Total -->
+					<div class="col-xxl-6">
+						<div class="cart_extra cart_extra_2">
+							<div class="cart_extra_content cart_extra_total">
+								<div class="cart_extra_title">Cart Total</div>
+								<ul class="cart_extra_total_list">
+									<li class="d-flex flex-row align-items-center justify-content-start">
+										<div class="cart_extra_total_title">收货人</div>
+										<div class="cart_extra_total_value ml-auto">{{buyer.nickName}}</div>
+									</li>
+									<li class="d-flex flex-row align-items-center justify-content-start">
+										<div class="cart_extra_total_title">收货地址</div>
+										<div class="cart_extra_total_value ml-auto">{{buyer.buy_address}}</div>
+									</li>
+									<li class="d-flex flex-row align-items-center justify-content-start">
+										<div class="cart_extra_total_title">联系方式</div>
+										<div class="cart_extra_total_value ml-auto">{{buyer.phone}}</div>
+									</li>
+									<li class="d-flex flex-row align-items-center justify-content-start">
+										<div class="cart_extra_total_title">总价</div>
+										<div class="cart_extra_total_value ml-auto"><span id="allprice">0</span></div>
+									</li>
+								</ul>
+								<div class="checkout_button trans_200" id="cart" onclick="form()"><a>生成订单</a></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<!-- Credits -->
+		<div class="credits">
+			<div class="section_container">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="credits_content d-flex flex-row align-items-center justify-content-end">
+								<div class="credits_text">
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> - Colorlib All rights reserved | More Templates <a href="http://www.cssmoban.com/" target="_blank" title="给我一颗糖">给我一颗糖</a> - Collect from <a href="/shop_user/index/" title="啦啦啦" target="_blank">啦啦啦</a>
+</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+
+
+<script src="{% static '/shop_user/js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static '/shop_user/css/styles/bootstrap-4.1.3/popper.js' %}"></script>
+<script src="{% static '/shop_user/css/styles/bootstrap-4.1.3/bootstrap.min.js' %}"></script>
+<script src="{% static '/shop_user/css/plugins/greensock/TweenMax.min.js' %}"></script>
+<script src="{% static '/shop_user/css/plugins/greensock/TimelineMax.min.js' %}"></script>
+<script src="{% static '/shop_user/css/plugins/scrollmagic/ScrollMagic.min.js' %}"></script>
+<script src="{% static '/shop_user/css/plugins/greensock/animation.gsap.min.js' %}"></script>
+<script src="{% static '/shop_user/css/plugins/greensock/ScrollToPlugin.min.js' %}"></script>
+<script src="{% static '/shop_user/css/plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+<script src="{% static '/shop_user/css/plugins/easing/easing.js' %}"></script>
+<script src="{% static '/shop_user/css/plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static '/shop_user/js/cart.js' %}"></script>
+<script>
+	var isDel = false; // 是否删除订单
+	var isUpdate = false; // 是否修改订单
+	var isForm = false; // 是否提交订单
+	var price =0; // 订单的商品单价
+	function calsc(price,id,e) { // 计算商品后的总价
+		var all_price = 0;
+		var goods_count = 0;
+		id = id.toString();
+		cid = "count_"+id; //商品数量的id
+		allprice = "allprice_"+id;//商品总价的id
+		goods_count = document.getElementById(cid).innerText;
+		price = parseFloat(price);
+		goods_count = parseInt(goods_count); // 商品数量
+		if (e.innerText=="+")
+		{
+			goods_count+=1;
+		}
+		else {
+			goods_count-=1;
+		}
+
+		all_price = goods_count*price;
+		all_price = all_price.toFixed(2);
+		if(goods_count<=0)
+		{
+			all_price=0;
+		}
+		price = document.getElementById(allprice);
+		price.innerHTML=all_price.toString();
+	}
+
+	function updateCart() { //更新购物车
+		isUpdate=true;
+		var countlist = new FormData();
+		var temp = 0;
+		var a,n;
+		countlist.append("isUpdate",isUpdate);
+		a = document.getElementsByClassName("product_num");
+		n= document.getElementsByClassName("product_id");
+		for(let i = 0;i<a.length;i++)
+		{
+			temp = parseInt(a[i].innerText);
+			countlist.append(n[i].value,temp);
+		}
+		$.ajax({
+			url :"/shop_user/cart/",
+			type:"POST",
+			data:countlist,
+			processData:false,
+			contentType:false,
+			dataType : "Json",
+			success:function(isUpdate) {
+				if(isUpdate["isUpdate"]==true)
+				{
+					alert("更新成功")
+					location.reload()
+				}
+			}
+		});
+	}
+
+	function del() {
+		isDel = true;
+		$.ajax({
+			url :"/shop_user/cart/",
+			type:"POST",
+			data:{"isDel":isDel},
+			dataType : "Json",
+			success:function(isDel) {
+				if(isDel["isDel"]==true)
+				{
+					alert("删除成功")
+					location.reload();
+				}
+			}
+		});
+	}
+
+	function checkgoods(id) {
+		id = id.toString();
+		sid = "span_"+id;
+		cid = "check_"+id;
+		price=parseFloat(document.getElementById(sid).innerText); // 一个商品的最终价格
+		allprice = document.getElementById("allprice").innerHTML; // 订单总价
+		all = parseFloat(allprice)
+		if(document.getElementById(cid).checked==true)
+		{
+			all = all + price;
+			document.getElementById("allprice").innerHTML = all.toFixed(2);
+		}
+		else {
+			all = all - price;
+			if(all>=0)
+			{
+				document.getElementById("allprice").innerHTML = all.toFixed(2);
+			}
+			else {
+				all=0;
+				document.getElementById("allprice").innerHTML = all.toFixed(2);
+			}
+		}
+
+	}
+	
+	function form() {
+		isForm=true;
+		var formdata = new FormData();
+		formdata.append("Form_allPrice",document.getElementById("allprice").innerHTML);
+		formdata.append("isForm",isForm);
+		a = document.getElementsByClassName("shipping_radio");
+		console.log(a.length);
+		for(let i=0;i<a.length;i++)
+		{
+			if(a[i].checked==true)
+			{
+				formdata.append(a[i].value,a[i].value);
+			}
+		}
+		$.ajax({
+			url :"/shop_user/cart/",
+			type:"POST",
+			data:formdata,
+			processData:false,
+			contentType:false,
+			dataType : "Json",
+			success:function(isForm) {
+				if(isForm["isForm"]==true)
+				{
+					alert("成功生成订单！")
+
+				}
+			}
+		});
+	}
+</script>
+</body>
+</html>

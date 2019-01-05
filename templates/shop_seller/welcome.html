@@ -1,0 +1,70 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+{% load static %}
+<script type="text/javascript" src="{% static '/shop_seller/js/html5shiv.js' %}"></script>
+<script type="text/javascript" src="{% static '/shop_seller/js/respond.min.js' %}"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="{% static '/shop_seller/css/H-ui.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static '/shop_seller/css/H-ui.admin.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static '/shop_seller/css/iconfont.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static '/shop_seller/css/skin.css' %}" />
+<!--[if IE 6]>
+<script type="text/javascript" src="{% static '/shop_seller/js/DD_belatedPNG_0.0.8a-min.js' %}" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>我的桌面</title>
+</head>
+<body>
+<div class="page-container">
+	<p class="f-20 text-success">欢迎进入给我一颗糖小铺店铺后台管理系统！</p>
+	<table class="table table-border table-bordered table-bg">
+		<thead>
+			<tr>
+				<th colspan="7" scope="col">店铺资料</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="text-c">
+				<td>店铺名称</td>
+				<td>{{admin.ShopName}}</td>
+			</tr>
+			<tr class="text-c">
+				<td>注册时间</td>
+				<td>{{admin.Shop_RegistTime}}</td>
+			</tr>
+			<tr class="text-c">
+				<td>联系电话</td>
+				<td>{{admin.Shop_phone}}</td>
+			</tr>
+			<tr class="text-c">
+				<td>店铺简介</td>
+				<td>{{admin.Shop_introduce}}</td>
+			</tr>
+			<tr class="text-c">
+				<td>店铺详情</td>
+				<td>{{admin.Shop_Content}}</td>
+			</tr>
+			<tr class="text-c">
+				<td>店铺LOGO</td>
+				<td><img id="imghead" src="/{{admin.LogoImg}}/" width="200" height="200" alt=""></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<footer class="footer mt-20">
+	<div class="container">
+			<p>Lalala <a href="http://www.cssmoban.com/" target="_blank" title="给我一颗糖">给我一颗糖</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">gmas</a></p>
+	</div>
+</footer>
+<script type="text/javascript" src="{% static '/shop_seller/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static '/shop_seller/js/H-ui.min.js' %}"></script>
+
+</body>
+</html>

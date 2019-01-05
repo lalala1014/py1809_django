@@ -1,0 +1,172 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+{% load static %}
+<script type="text/javascript" src="{% static '/shop_seller/js/html5shiv.js' %}"></script>
+<script type="text/javascript" src="{% static '/shop_seller/js/respond.min.js' %}"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="{% static '/shop_seller/css/H-ui.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static '/shop_seller/css/H-ui.admin.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static '/shop_seller/css/iconfont.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static '/shop_seller/css/skin.css' %}" />
+<!--[if IE 6]>
+<script type="text/javascript" src="{% static '/shop_seller/js/DD_belatedPNG_0.0.8a-min.js' %}" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<!--/meta 作为公共模版分离出去-->
+
+<link href="{% static '/shop_seller/js/webuploader/0.1.5/webuploader.css' %}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="page-container">
+	<form action="" method="post" class="form form-horizontal" id="form-article-add" enctype = "multipart/form-data">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>产品标题：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder=""  name="" id="good_name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类栏目：</label>
+			<div class="formControls col-xs-1 col-sm-1"> <span class="select-box">
+				<select name="" class="select" id="good_type">
+					<option value="T恤">T恤</option>
+					<option value="外套">外套</option>
+					<option value="衬衫">衬衫</option>
+					<option value="卫衣">卫衣</option>
+					<option value="毛衣">毛衣</option>
+					<option value="牛仔裤">牛仔裤</option>
+					<option value="休闲裤">休闲裤</option>
+					<option value="半身裙">半身裙</option>
+					<option value="短裙">短裙</option>
+					<option value="长裙">长裙</option>
+					<option value="短裤">短裤</option>
+					<option value="鞋">鞋</option>
+					<option value="包">包</option>
+					<option value="配饰">配饰</option>
+				</select>
+				</span> </div>
+			<label class="form-label col-xs-3 col-sm-3">产品尺码：</label>
+			<div class="formControls col-xs-1 col-sm-1">
+				<span class="select-box">
+				<select name="" class="select" id="good_size">
+					<option value="s">xs</option>
+					<option value="s">s</option>
+					<option value="m">m</option>
+					<option value="l">l</option>
+					<option value="s">xl</option>
+					<option value="均码">均码</option>
+				</select></span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">产品状态：</label>
+			<div class="formControls col-xs-1 col-sm-1">
+				<span class="select-box">
+				<select name="" class="select" id="good_state">
+					<option value="上架">上架</option>
+					<option value="下架">下架</option>
+				</select></span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">库存：</label>
+			<div class="formControls col-xs-1 col-sm-1">
+				<input type="number" name="" id="good_stock" placeholder="" value="" class="input-text" min="0">
+			</div>
+			<label class="form-label col-xs-3 col-sm-3">产品价格(￥)：</label>
+			<div class="formControls col-xs-1 col-sm-1">
+				<input type="text" name="" id="good_price" placeholder="" value="" class="input-text" style="display: inline-block">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">品牌：</label>
+			<div class="formControls col-xs-4 col-sm-4">
+				<input type="text" name=""  placeholder="" value="" class="input-text" id="good_brand">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">缩略图：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="uploader-thum-container">
+					<input class="file-btn" type="file" id="file" name="header" onchange="imgChange(this)">
+					<img id="imghead" src="{% static '/shop_seller/images/logo.png'%}" width="200" height="200" alt="">
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">产品摘要：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="" cols="" rows="" class="textarea" id="good_content" placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
+				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button id="btn" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 提交</button>
+				<button onClick="layer_close();"id="exit" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="{% static '/shop_seller/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static '/shop_seller/js/layer.js' %}"></script>
+<script type="text/javascript" src="{% static '/shop_seller/js/H-ui.min.js' %}"></script>
+<script type="text/javascript" src="{% static '/shop_seller/js/H-ui.admin.js' %}"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="{% static '/shop_seller/js/My97DatePicker/4.8/WdatePicker.js' %}"></script>
+<script type="text/javascript" src="{% static '/shop_seller/js/jquery.validation/1.14.0/jquery.validate.js' %}"></script>
+<script type="text/javascript" src="{% static '/shop_seller/js/jquery.validation/1.14.0/validate-methods.js' %}"></script>
+<script type="text/javascript" src="{% static '/shop_seller/js/jquery.validation/1.14.0/messages_zh.js' %}"></script>
+<script type="text/javascript">
+	$("#btn").on("click",function(){
+		var formData = new FormData();
+		var img_file = document.getElementById("file").files[0];
+		formData.append('good_name',$("#good_name").val());
+		formData.append('good_brand',$("#good_brand").val());
+		formData.append('good_price',$("#good_price").val());
+		formData.append('good_state',$("#good_state").val());
+		formData.append('good_size',$("#good_size").val());
+		formData.append('good_stock',$("#good_stock").val());
+		formData.append('good_type',$("#good_type").val());
+		formData.append('good_content',$("#good_content").val());
+		formData.append('header',img_file);
+            $.ajax({
+                url :"/shop/product_add/",
+                type:"POST",
+				data:formData,
+				processData:false,
+				contentType:false,
+                dataType : "Json",
+                success:function(isAdd){
+                	if(isAdd["isAdd"]==true)
+					{
+						alert("添加成功")
+						window.location.href="/shop/product_add/";
+					}
+                	else {
+                		alert("添加失败");
+						window.location.href="/shop/product_add/";
+					}
+				}
+            });
+        });
+function imgChange(obj){
+		var file = document.getElementById("file");
+		var imgUrl = window.URL.createObjectURL(file.files[0]);
+		var img = document.getElementById("imghead");
+		img.setAttribute("src",imgUrl);
+	}
+
+</script>
+</body>
+</html>

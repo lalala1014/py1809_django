@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>个人资料</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="aStar Fashion Template Project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static '/shop_user/css/styles/bootstrap-4.1.3/bootstrap.css' %}">
+<link href="{% static '/shop_user/css/plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{% static '/shop_user/css/plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static '/shop_user/css/plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static '/shop_user/css/plugins/OwlCarousel2-2.2.1/animate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static '/shop_user/css/styles/checkout_responsive.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static '/shop_user/css/styles/checkout.css' %}">
+	<style>
+		#btn{
+			color: #414141;
+		}
+		#btn>a:hover{
+			 cursor:pointer;
+			color: #bbe432;
+			/*line-height: 45px;*/
+		}
+	</style>
+
+</head>
+<body>
+
+<div class="super_container">
+
+	<!-- Sidebar -->
+
+	<div class="sidebar">
+		
+		<!-- Info -->
+		<div class="info">
+			<div class="info_content d-flex flex-row align-items-center justify-content-start">
+				
+				<!-- Language -->
+				<div class="info_languages has_children">
+					<div class="language_flag"><img src="/{{buyer.head}}/"></div>
+					<div class="dropdown_text">{{buyer.nickName}}</div>
+					<div class="dropdown_arrow"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
+					 <ul>
+					 	<li><a href="/shop_user/update_user/">
+							<div class="dropdown_text">修改个人资料</div>
+					 	</a></li>
+					 	<li><a href="/shop_user/formlist/">
+							<div class="dropdown_text">查看订单</div>
+					 	</a></li>
+						 <li><a href="/shop_user/exit/">
+							<div class="dropdown_text">退出登录</div>
+					 	</a></li>
+					 </ul>
+
+				</div>
+
+				<!-- Currency -->
+				<div class="info_currencies has_children">
+					<div class="dropdown_text">usd</div>
+					<div class="dropdown_arrow"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
+
+					<!-- Currencies Dropdown Menu -->
+					 <ul>
+					 	<li><a href="#"><div class="dropdown_text">EUR</div></a></li>
+					 	<li><a href="#"><div class="dropdown_text">YEN</div></a></li>
+					 	<li><a href="#"><div class="dropdown_text">GBP</div></a></li>
+					 	<li><a href="#"><div class="dropdown_text">CAD</div></a></li>
+					 </ul>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Logo -->
+		<div class="sidebar_logo">
+			<a href="/shop_user/index/"><div>g <span>m a S</span></div></a>
+		</div>
+
+		<!-- Sidebar Navigation -->
+		<nav class="sidebar_nav">
+			<ul>
+				<li><a href="/shop_user/index/">首页<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+				<li><a href="/shop_user/shangyi/">上衣<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+				<li><a href="/shop_user/xiazhuang/">下装<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+				<li><a href="/shop_user/shoes/">鞋<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+				<li><a href="/shop_user/Accessories/">配饰<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+				<li><a href="#">清仓半价<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+			</ul>
+		</nav>
+
+		<!-- Search -->
+		<div class="search">
+			<form action="#" class="search_form" id="sidebar_search_form">
+				<input type="text" class="search_input" placeholder="Search" required="required">
+				<button class="search_button"><i class="fa fa-search" aria-hidden="true"></i></button>
+			</form>
+		</div>
+
+		<!-- Cart -->
+		<div class="cart d-flex flex-row align-items-center justify-content-start">
+			<div class="cart_icon"><a href="/shop_user/cart/">
+				<img src="{% static '/shop_user/images/shop/bag.png' %}" alt="">
+				<div class="cart_num">{{cartcount}}</div>
+			</a></div>
+			<div class="cart_text">购物车</div>
+			<div class="cart_price">{{allprice}}</div>
+		</div>
+	</div>
+
+	<!-- Home -->
+
+	<div class="home">
+		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="{% static '/shop_user/images/shop/1.jpg' %}" data-speed="0.8"></div>
+		<div class="home_container">
+			<div class="home_content">
+				<div class="home_title">个人资料</div>
+				<div class="breadcrumbs">
+					<ul class="d-flex flex-row align-items-center justify-content-start">
+						<li><a href="/shop_user/index/">Home</a></li>
+						<li>个人资料</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Checkout -->
+
+	<div class="checkout">
+		<div class="section_container">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="checkout_container d-flex flex-xxl-row flex-column align-items-start justify-content-start">
+							
+							<!-- Billing -->
+							<div class="billing checkout_box">
+								<div class="checkout_title">修改个人资料</div>
+								<div class="checkout_form_container">
+									<form  id="checkout_form" class="checkout_form" enctype = "multipart/form-data">
+										{% csrf_token %}
+										<div class="row">
+											<div class="col-lg-6">
+												<!-- Name -->
+												<label for="checkout_name">昵称</label>
+												<input type="text" id="checkout_name" class="checkout_input" value={{buyer.nickName}}>
+											</div>
+											<div class="col-lg-6">
+												<!-- Last Name -->
+												<label for="checkout_last_name">年龄</label>
+												<input type="number" id="checkout_last_name" class="checkout_input" value={{buyer.age}}>
+											</div>
+										</div>
+										<div>
+											<!-- Country -->
+											<label for="checkout_country">性别</label>
+											<select name="checkout_country" id="checkout_country" class="dropdown_item_select checkout_input"  >
+												{% if buyer.sex == '男' %}
+												<option  selected>男</option>
+												<option >女</option>
+												{% else %}
+												<option >男</option>
+												<option selected>女</option>
+												{% endif %}
+											</select>
+										</div>
+										<div>
+											<!-- Address -->
+											<label for="checkout_address">居住地址</label>
+											<input type="text" id="checkout_address" class="checkout_input" value={{buyer.address}}>
+										</div>
+										<div>
+											<label for="checkout_address">收货地址</label>
+											<input type="text" id="checkout_address_2" class="checkout_input checkout_address_2" value={{buyer.buy_address}}>
+										</div>
+										<div>
+											<!-- Zipcode -->
+											<label for="checkout_phone">个人头像</label>
+											<input class="file-btn" type="file" id="file" name="header" onchange="imgChange(this)">
+											<img id="imghead" src="/{{buyer.head}}/" width="200" height="200" alt="">
+										</div>
+										<div>
+											<!-- Phone no -->
+											<label for="checkout_phone">联系电话</label>
+											<input type="phone" id="checkout_phone" class="checkout_input" value={{buyer.phone}}>
+										</div>
+										<div>
+											<!-- Email -->
+											<label for="checkout_email">邮箱地址</label>
+											<input type="phone" id="checkout_email" class="checkout_input" value={{buyer.email}}>
+										</div>
+
+											<div class="checkout_button trans_200" id="btn"><a >确认修改</a></div>
+									</form>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Credits -->
+		<div class="credits">
+			<div class="section_container">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="credits_content d-flex flex-row align-items-center justify-content-end">
+								<div class="credits_text">
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> - Colorlib All rights reserved | More Templates <a href="http://www.cssmoban.com/" target="_blank" title="给我一颗糖">给我一颗糖</a> - Collect from <a href="/shop_user/index/" title="啦啦啦" target="_blank">啦啦啦</a>
+</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+</div>
+
+
+<script src="{% static '/shop_user/js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static '/shop_user/css/styles/bootstrap-4.1.3/popper.js' %}"></script>
+<script src="{% static '/shop_user/css/styles/bootstrap-4.1.3/bootstrap.min.js' %}"></script>
+<script src="{% static '/shop_user/css/plugins/greensock/TweenMax.min.js' %}"></script>
+<script src="{% static '/shop_user/css/plugins/greensock/TimelineMax.min.js' %}"></script>
+<script src="{% static '/shop_user/css/plugins/scrollmagic/ScrollMagic.min.js' %}"></script>
+<script src="{% static '/shop_user/css/plugins/greensock/animation.gsap.min.js' %}"></script>
+<script src="{% static '/shop_user/css/plugins/greensock/ScrollToPlugin.min.js' %}"></script>
+<script src="{% static '/shop_user/css/plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+<script src="{% static '/shop_user/css/plugins/easing/easing.js' %}"></script>
+<script src="{% static '/shop_user/css/plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static '/shop_user/js/checkout.js' %}"></script>
+
+<script>
+	function imgChange(obj){
+		var file = document.getElementById("file");
+		var imgUrl = window.URL.createObjectURL(file.files[0]);
+		var img = document.getElementById("imghead");
+		img.setAttribute("src",imgUrl);
+	}
+	$("#btn").on("click",function(){
+		var formData = new FormData();
+		console.log("123");
+		var img_file = document.getElementById("file").files[0];
+		formData.append('nickName',$("#checkout_name").val()); //昵称
+		formData.append('age',$("#checkout_last_name").val());
+		formData.append('sex',$("#checkout_country option:selected").text());
+		formData.append('address',$("#checkout_address").val());
+		formData.append('buy_address',$("#checkout_address_2").val());
+		formData.append('phone',$("#checkout_phone").val());
+		formData.append('email',$("#checkout_email").val());
+		formData.append('header',img_file);
+            $.ajax({
+                url :"/shop_user/update_user/",
+                type:"POST",
+				data:formData,
+				processData:false,
+				contentType:false,
+                dataType : "Json",
+                success:function(isUpdate){
+                	if(isUpdate["isUpdate"]==true)
+					{
+						alert("修改成功")
+						window.location.href="/shop_user/update_user/";
+					}
+                	else {
+                		alert("修改失败");
+						window.location.href="/shop_user/update_user/";
+					}
+				}
+            });
+        });
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+Django==1.11.16
+django-haystack==2.8.1
+django-redis==4.10.0
+django-tinymce==2.7.0
+jieba==0.39
+Pillow==5.3.0
+PyMySQL==0.9.3
+pytz==2018.7
+redis==3.0.1
+Whoosh==2.7.4

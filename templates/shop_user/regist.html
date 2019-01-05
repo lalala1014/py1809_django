@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<title>给我一颗糖-注册</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- font files  -->
+<link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+<!-- /font files  -->
+<!-- css files -->
+{% load static %}
+<link href="{% static '/shop_user/css/style.css' %}" rel='stylesheet' type='text/css' media="all" />
+<!-- /css files -->
+<script src="{% static '/shop_user/js/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static '/shop_user/js/jquery.form.js' %}"></script>
+</head>
+<body>
+<h1>给我一颗糖小铺</h1>
+<div class="log">
+	<div class="content2">
+		<h2>Sign Up Form</h2>
+		<form action="{% url 'buy:regist' %}" method="post">
+			{% csrf_token %}
+			<input class="user" type="text" name="user" value="USERNAME" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'USERNAME';}" required>
+			<input type="password" class="pwd" name="pwd" value="PASSWORD" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'PASSWORD';}" required>
+			<input class="tel" type="tel" name="usrtel" value="PHONE" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'PHONE';}" required>
+			<input class="email" type="email" name="email" value="EMAIL ADDRESS" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'EMAIL ADDRESS';}" required>
+			<button type="button" class="register" value="注册" id="btn">注册</button>
+		</form>
+	</div>
+	<div class="clear"></div>
+</div>
+<div class="footer">
+	<p>Copyright &copy; 2016.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="啦啦啦">啦啦啦</a> - Collect from <a href="http://www.cssmoban.com/" title="啦啦啦" target="_blank">啦啦啦</a></p>
+</div>
+
+
+<script>
+     $("#btn").on("click",function(e){
+            $.ajax({
+                url :"/shop_user/regist/",
+                type:"POST",
+                data:{"name":$(".user").val(),"email":$(".email").val(),"tel":$(".tel").val(),"pwd":$(".pwd").val()},
+                dataType : "Json",
+                success:function(isRegist){
+					if(isRegist["isRegist"]=="1")
+					{
+						alert("注册成功");
+						window.location.href="/shop_user/login/";
+					}
+					else{
+						alert("注册失败，用户名已存在！")
+						window.location.href="/shop_user/regist/"
+					}
+				}
+            });
+        });
+</script>
+</body>
+</html>

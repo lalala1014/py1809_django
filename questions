@@ -1,0 +1,14 @@
+遇到的问题：模板错误 无法解析余数
+TemplateSyntaxError at /shop/update_shop/
+Could not parse the remainder: ''/shop_seller/js/html5shiv.js' from ''/shop_seller/js/html5shiv.js'
+解决：模板语法出错 少打了一个单引号
+
+
+
+ajax上传的数据获取不到值
+解决：
+
+
+
+问题： 更新session
+

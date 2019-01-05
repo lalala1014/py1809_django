@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+{% load static %}
+<script type="text/javascript" src="{% static '/shop_seller/js/html5shiv.js' %}"></script>
+<script type="text/javascript" src="{% static '/shop_seller/js/respond.min.js' %}"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="{% static '/shop_seller/css/H-ui.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static '/shop_seller/css/H-ui.admin.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static '/shop_seller/css/iconfont.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static '/shop_seller/css/skin.css' %}" />
+<!--[if IE 6]>
+<script type="text/javascript" src="{% static '/shop_seller/js/DD_belatedPNG_0.0.8a-min.js' %}" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>修改店铺资料</title>
+</head>
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add" enctype = "multipart/form-data" method="post">
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>店铺名称：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value={{admin.ShopName}}  id="adminName" name="adminName">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>管理员密码：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>确认密码：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="password" class="input-text" autocomplete="off" value="" placeholder="确认新密码" id="password2" name="password2">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>店铺联系方式：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="{{admin.Shop_phone}}" placeholder="" id="phone" name="phone">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>店铺LOGO：</label>
+		<div class="formControls col-xs-6 col-sm-6">
+			<input class="file-btn" type="file" id="file" name="header" onchange="imgChange(this)">
+		</div>
+		<div class="formControls col-xs-6 col-sm-6">
+			<img id="imghead" src="/{{admin.LogoImg}}/" width="200" height="200" alt="">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">店铺简介：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<textarea name="introduce" id="introduce" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true">{{admin.Shop_introduce}}</textarea>
+			<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+		</div>
+	</div>
+		<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">店铺详情介绍：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<textarea name="content" id="content1" cols="" rows="" class="textarea"  dragonfly="true" >{{admin.Shop_Content}}</textarea>
+			<p class="textarea-numberbar"><em class="textarea-length">0</em>/400</p>
+		</div>
+	</div>
+	<div class="row cl">
+		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+			<input class="btn btn-primary radius" id="btn" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+		</div>
+	</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去--> 
+<script type="text/javascript" src="{% static '/shop_seller/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static '/shop_seller/js/layer.js' %}"></script>
+<script type="text/javascript" src="{% static '/shop_seller/js/H-ui.min.js' %}"></script>
+<script type="text/javascript" src="{% static '/shop_seller/js/H-ui.admin.js' %}"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="{% static '/shop_seller/js/jquery.validation/1.14.0/jquery.validate.js' %}"></script>
+<script type="text/javascript" src="{% static '/shop_seller/js/jquery.validation/1.14.0/validate-methods.js' %}"></script>
+<script type="text/javascript" src="{% static '/shop_seller/js/jquery.validation/1.14.0/messages_zh.js' %}"></script>
+<script type="text/javascript">
+	$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+});
+	$("#btn").on("click",function(){
+		var formData = new FormData();
+		var img_file = document.getElementById("file").files[0];
+		formData.append('adminName',$("#adminName").val());
+		formData.append('phone',$("#phone").val());
+		formData.append('introduce',$("#introduce").val());
+		formData.append('content',$("#content1").val());
+		formData.append('password',$("#password").val());
+		formData.append('password2',$("#password2").val());
+		formData.append('header',img_file);
+            $.ajax({
+                url :"/shop/edit/",
+                type:"POST",
+				data:formData,
+                processData:false,
+				contentType:false,
+				dataType : "Json",
+                success:function(isUpdate){
+                	console.log(isUpdate)
+                	if(isUpdate["isUpdate"]==true)
+					{
+						alert("修改成功")
+						window.location.href="/shop/edit/";
+					}
+                	else {
+                		alert("修改失败");
+						window.location.href="/shop/edit/";
+					}
+				}
+            });
+        });
+	function imgChange(obj){
+		var file = document.getElementById("file");
+		var imgUrl = window.URL.createObjectURL(file.files[0]);
+		var img = document.getElementById("imghead");
+		img.setAttribute("src",imgUrl);
+	}
+</script> 
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>
